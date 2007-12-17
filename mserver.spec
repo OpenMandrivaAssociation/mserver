@@ -12,7 +12,6 @@ Source: 	ftp://ftp.cpwright.com:/pub/mserver/c-mserver-%{version}.tar.bz2
 Provides:	c-mserver
 Obsoletes: 	c-mserver
 Requires(pre):	rpm-helper sed
-BuildRoot: 	%{_tmppath}/%{name}-%{version}
 Source1:	mserver.pamd
 Source2:	mserver.conf.bz2
 Source3:	mserver.init
