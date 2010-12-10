@@ -1,5 +1,5 @@
 %define version 0.5.5
-%define release %mkrel 8
+%define release %mkrel 9
 
 Summary: 	C-Mserver Masqdialer daemon
 Name: 		mserver
