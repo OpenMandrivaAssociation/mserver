@@ -1,0 +1,5 @@
+sources:
+  "c-mserver-0.5.5.tar.bz2:"	a87c8d564bd7db52660a99ffca5f5e4c439b3ae2
+  "mserver.conf.bz2:"	c267f747c9b2dbb43109327afe1599a728d4474c
+  "mserver.init:"	303cd0f3fedde261ed28ee086c8e1800f99fd2f8
+  "mserver.pamd:"	3310dd79c5a59b26ec2b87ce20199e69e2c50d60
