@@ -1,5 +1,8 @@
 sources:
-  "c-mserver-0.5.5.tar.bz2:"	a87c8d564bd7db52660a99ffca5f5e4c439b3ae2
-  "mserver.conf.bz2:"	c267f747c9b2dbb43109327afe1599a728d4474c
-  "mserver.init:"	303cd0f3fedde261ed28ee086c8e1800f99fd2f8
-  "mserver.pamd:"	3310dd79c5a59b26ec2b87ce20199e69e2c50d60
+  "c-mserver-0.5.5-makefile.patch.bz2": daa3629bc2e2d1b7ca41934761ce94999a83c22a
+  "c-mserver-0.5.5.tar.bz2": a87c8d564bd7db52660a99ffca5f5e4c439b3ae2
+  "mserver-0.5.5-config.patch.bz2": 040f383d329f337b5078226c52e9e3081a038c57
+  "mserver-0.5.5-dial.patch.bz2": 07cd648e078d623ffb39b1e7c816a7e504cdf544
+  "mserver-0.5.5-errno-fix.patch.bz2": 49a8156008ae5006fa384b8b0d972fbcf6e96e32
+  "mserver-0.5.5-gcc4-fixes.patch.bz2": c59b1edaf2a136f2cff71361136cc8b873a7246c
+  "mserver.conf.bz2": c267f747c9b2dbb43109327afe1599a728d4474c
