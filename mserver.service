@@ -1,0 +1,16 @@
+[Unit]
+Description=Starts and stops the mserver
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/echo -n "Starting Masqdialer server: "
+ExecStart=mserver >/dev/null 2>&1 &
+ExecStart=/bin/touch /var/lock/subsys/mserver
+
+ExecStop=/bin/echo -n "Shutting down Masqdialer server: "
+ExecStop=/bin/killproc mserver
+ExecStop=/bin/rm -f /var/lock/subsys/mserver
+
+[Install]
+WantedBy=multi-user.target

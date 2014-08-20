@@ -1,14 +1,14 @@
 Summary:	C-Mserver Masqdialer daemon
 Name:		mserver
 Version:	0.5.5
-Release:	10
+Release:	12
 License:	GPLv2+
 Group:		Networking/Other
 Url:		http://w3.cpwright.com/mserver
 Source0:	ftp://ftp.cpwright.com:/pub/mserver/c-mserver-%{version}.tar.bz2
 Source1:	mserver.pamd
 Source2:	mserver.conf.bz2
-Source3:	mserver.init
+Source3:	mserver.service
 Patch0:		c-mserver-0.5.5-makefile.patch.bz2
 Patch1:		mserver-0.5.5-config.patch.bz2
 Patch2:		mserver-0.5.5-dial.patch.bz2
@@ -16,6 +16,10 @@ Patch3:		mserver-0.5.5-errno-fix.patch.bz2
 Patch4:		mserver-0.5.5-gcc4-fixes.patch.bz2
 Requires(pre):	rpm-helper sed
 Provides:	c-mserver = %{EVRD}
+BuildRequires: systemd
+Requires(post): systemd
+Requires(preun): systemd
+Requires(postun): systemd
 
 %description
 The masqdialer system will allow authorized LAN users to manipulate
@@ -30,7 +34,7 @@ Note: Please make changes to /etc/mserver.conf.
 
 %files
 %config(noreplace) %{_sysconfdir}/pam.d/mserver
-%{_sysconfdir}/rc.d/init.d/mserver
+%{_unitdir}/mserver.service
 %config(noreplace) %{_sysconfdir}/ppp/options.sample
 %{_sbindir}/mserver
 %{_sbindir}/mchat
@@ -51,20 +55,21 @@ Note: Please make changes to /etc/mserver.conf.
 %attr(0644,root,root) %config(noreplace) /etc/mserver.conf
 
 %post
-%_post_service mserver
+%systemd_post mserver.service
 
 # Add masqdialer entry to /etc/services if not already there
-if ! ( grep ^[:space:]*224/tcp /etc/services > /dev/null ) then
+if ! ( grep ^[[:space:]]*224/tcp /etc/services > /dev/null ) then
        echo 'masqdialer      224/tcp		masqdialer	# added by c-mserver' >> /etc/services
 fi
-if ! ( grep ^[:space:]*224/udp /etc/services > /dev/null ) then
+if ! ( grep ^[[:space:]]*224/udp /etc/services > /dev/null ) then
        echo 'masqdialer      224/udp		masqdialer	# added by c-mserver' >> /etc/services
 fi
 
 %preun
-%_preun_service mserver
+%systemd_preun mserver.service
 
 %postun
+%systemd_postun_with_restart mserver.service
 if [ $1 -eq 0 ]
     then
 # Remove masqdialer entries from /etc/services
@@ -98,7 +103,6 @@ find . -name .cvsignore -type f -exec rm -f {} \;|| true
 %install
 mkdir -p %{buildroot}%{_sbindir}
 mkdir -p %{buildroot}%{_sysconfdir}/ppp
-mkdir -p %{buildroot}%{_sysconfdir}/rc.d/init.d
 mkdir -p %{buildroot}/%{_mandir}/{man5,man8}
 mkdir -p %{buildroot}%{_sysconfdir}/pam.d
 mkdir -p %{buildroot}%{_datadir}/mserver
@@ -110,14 +114,13 @@ install -m 755 checkstat/checkstat %{buildroot}%{_sbindir}/checkstat
 install -m 755 fakelink/linkcheck %{buildroot}%{_sbindir}/fakelink
 install -m 755 fakelink/linkdown %{buildroot}%{_sbindir}/linkdown
 install -m 755 fakelink/linkup %{buildroot}%{_sbindir}/linkup
-install -m 755 %{SOURCE3} %{buildroot}%{_sysconfdir}/rc.d/init.d/mserver
 install -m 664 pam/mserver %{buildroot}%{_sysconfdir}/pam.d/mserver
 install -m 644 pppsetup/options.sample %{buildroot}%{_sysconfdir}/ppp/options.sample
 install -m 755 pppsetup/ppp-off %{buildroot}%{_sbindir}
 install -m 755 pppsetup/pppsetup %{buildroot}%{_sbindir}
+install -D -p -m 0755 %{SOURCE3} %{buildroot}%{_unitdir}/mserver.service
 
 bzcat %{SOURCE2}|sed -e 's/_VERSION_/%{version}/'> %{buildroot}/etc/mserver.conf
 install -m 644 mchat/mchat.8 %{buildroot}/%{_mandir}/man8/mchat.8
 install -m 644 docs/mserver.8 %{buildroot}/%{_mandir}/man8/mserver.8
 install -m 644 docs/mserver.conf.5 %{buildroot}/%{_mandir}/man5/mserver.conf.5
-
