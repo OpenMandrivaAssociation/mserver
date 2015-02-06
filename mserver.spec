@@ -1,7 +1,7 @@
 Summary:	C-Mserver Masqdialer daemon
 Name:		mserver
 Version:	0.5.5
-Release:	12
+Release:	13
 License:	GPLv2+
 Group:		Networking/Other
 Url:		http://w3.cpwright.com/mserver
