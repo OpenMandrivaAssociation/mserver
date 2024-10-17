@@ -4,7 +4,7 @@ Version:	0.5.5
 Release:	13
 License:	GPLv2+
 Group:		Networking/Other
-Url:		http://w3.cpwright.com/mserver
+Url:		https://w3.cpwright.com/mserver
 Source0:	ftp://ftp.cpwright.com:/pub/mserver/c-mserver-%{version}.tar.bz2
 Source1:	mserver.pamd
 Source2:	mserver.conf.bz2
