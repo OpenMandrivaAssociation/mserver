@@ -16,6 +16,11 @@ Patch3:		mserver-0.5.5-errno-fix.patch.bz2
 Patch4:		mserver-0.5.5-gcc4-fixes.patch.bz2
 Requires(pre):	rpm-helper sed
 Provides:	c-mserver = %{EVRD}
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires: systemd
 Requires(post): systemd
 Requires(preun): systemd
